@@ -133,8 +133,48 @@ class LinkedList:
     def merge_sort(self):
         self.head=self.sort_linked_list()
 
-          
+    @staticmethod
+    def merge_two_sorted_lists(list1, list2):
+        new_list1 = list1.copy()
+        new_list2 = list2.copy()
 
+        new_list = LinkedList()
+        head1 = new_list1.head
+        head2 = new_list2.head
+        new_list.head = new_list1.merge_sorted_lists(head1, head2)
+        return new_list
+    
+    @staticmethod
+    def merge_two_unsorted_lists_to_sorted_list(list1, list2):
+        new_list1 = list1.copy()
+        new_list2 = list2.copy()
+        
+        new_list1.merge_sort()
+        new_list2.merge_sort()
+
+        new_list = LinkedList()
+        head1 = new_list1.head
+        head2 = new_list2.head
+        new_list.head = new_list1.merge_sorted_lists(head1, head2)
+        return new_list
+
+    def copy(self):
+        copied_list = LinkedList()
+        if self.head is None:
+            return copied_list
+
+        current_original = self.head
+        copied_list.head = Node(current_original.data)
+        current_copied = copied_list.head
+
+        while current_original.next:
+            current_original = current_original.next
+            current_copied.next = Node(current_original.data)
+            current_copied = current_copied.next
+
+        return copied_list
+      
+# Створення однозв’язного списку
 llist = LinkedList()
 
 # Вставляємо вузли в початок
@@ -176,3 +216,39 @@ llist.print_list()
 llist.merge_sort()
 print("\nЗв'язний список після сортування даних:")
 llist.print_list()
+
+# Створення ще одного однозв’язного списку
+llist1 = LinkedList()
+
+# Вставляємо вузли в початок
+llist1.insert_at_beginning(5)
+llist1.insert_at_beginning(10)
+llist1.insert_at_beginning(15)
+llist1.insert_at_beginning(30)
+llist1.insert_at_beginning(12)
+llist1.insert_at_beginning(15)
+llist1.insert_at_beginning(20)
+print("\nДругий зв'язний список:")
+llist1.print_list()
+
+# Об’єднання двох не сортованих однозв’язних списки в один сортовний
+llist2 = LinkedList.merge_two_unsorted_lists_to_sorted_list(llist, llist1)
+print("\nОб’єднані два не сортованих однозв’язних списки в один сортований:")
+llist2.print_list()
+
+# Сортування другого однозв'язного списку
+llist1.merge_sort()
+print("\nДругий зв'язний список після сортування даних:")
+llist1.print_list()
+
+
+# Об’єднання двох сортованих однозв’язних списки
+llist3 = LinkedList.merge_two_sorted_lists(llist, llist1)
+print("\nОб’єднані два сортованих однозв’язних списки:")
+llist3.print_list()
+
+# Немутовані зв’язані списки
+print("\nНемутований перший зв'язний список:")
+llist.print_list()
+print("\nНемутований другий зв'язний список:")
+llist1.print_list()
