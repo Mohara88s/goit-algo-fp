@@ -60,7 +60,7 @@ class LinkedList:
             print(current.data)
             current = current.next
 
-    def inseert_before_element(self, element:Node, data: int):
+    def insert_before_element(self, element:Node, data: int):
         if element is None:
             print("Вузла не існує.")
             return
@@ -94,15 +94,46 @@ class LinkedList:
             cur = next_el
         self.head = prev
 
-    def sort_linked_list(self):
-        prev = None
-        cur = self.head
-        while cur:
-            next_el = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next_el
-        self.head = prev
+    def get_middle_of(self, head):
+        if head == None:
+            return None
+        slow = head
+        fast = head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
+
+    def merge_sorted_lists(self, left, right):
+        if left == None:
+            return right
+        if right == None:
+            return left
+        
+        if left.data <= right.data:
+            left.next = self.merge_sorted_lists(left.next, right)
+            return left
+        else:
+            right.next = self.merge_sorted_lists(left, right.next)
+            return right
+
+    def sort_linked_list(self, head:Node=None)->Node:
+        if head is None:
+            head = self.head
+
+        if head is None or head.next is None:
+            return head
+        
+        middle = self.get_middle_of(head)
+        next_to_middle = middle.next
+        middle.next = None
+
+        return self.merge_sorted_lists(self.sort_linked_list(head), self.sort_linked_list(next_to_middle))
+    
+    def merge_sort(self):
+        self.head=self.sort_linked_list()
+
+          
 
 llist = LinkedList()
 
@@ -133,7 +164,7 @@ if element:
 
 # Вставка елементу
 print()
-llist.inseert_before_element(element,111)
+llist.insert_before_element(element,111)
 llist.print_list()
 
 # Реверсування однозв'язного списку, змінюючи посилання між вузлами
@@ -142,6 +173,6 @@ print("\nЗв'язний список після реверсу даних:")
 llist.print_list()
 
 # Сортування однозв'язного списку
-llist.sort_linked_list()
+llist.merge_sort()
 print("\nЗв'язний список після сортування даних:")
 llist.print_list()
