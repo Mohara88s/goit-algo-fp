@@ -51,7 +51,6 @@ def dynamic_programming(dishes, budget):
     # Функція повертає оптимальні набір страв та кількість калорій в бюджеті
     return sets_of_dishes[num_of_dishes][budget], max_calories[num_of_dishes][budget]
 
-
 items = {
     "pizza": {"cost": 50, "calories": 300},
     "hamburger": {"cost": 40, "calories": 250},
@@ -62,13 +61,14 @@ items = {
 }
 budget = 100
 
-
 print(f'Calculations for budget: {budget}:')
 greedy_set_of_dishes, calories, unused_budget = greedy_algorithm(items, budget)
 dynamic_programming_set_of_dishes, max_calories, = dynamic_programming(items, budget)
 
 print('-'*65)
-print(f'|       greedy set     |calories|dynamic programing set|calories|')
+print(f'|     greedy algorithm set      |    dynamic programing set     |')
+print('-'*65)
+print(f'|     name of dish     |calories|     name of dish     |calories|')
 print('-'*65)
 for g_s, d_p_s  in zip_longest(greedy_set_of_dishes.items(), dynamic_programming_set_of_dishes.items(), fillvalue=(None)):
     g_s_name = g_s[0] if g_s else ''
