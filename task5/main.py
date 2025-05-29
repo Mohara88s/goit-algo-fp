@@ -53,7 +53,7 @@ def dfs(root):
         # Вилучаємо вузол зі стеку
         node = stack.pop()  
         # Відвідуємо вузол і змінюємо його колір
-        node.color = '#{:02X}{:02X}{:02X}'.format(int(0+color_level), 255, int(0+color_level))
+        node.color = '#{:02X}{:02X}{:02X}'.format(int(color_level), 255, int(color_level))
         color_level+=color_step
         # Додаємо дочірні вузли до стеку
         if node.right:
@@ -72,7 +72,7 @@ def bfs(root):
         # Вилучаємо вузол з черги
         node = queue.popleft()
         # Відвідуємо вузол і змінюємо його колір
-        node.color = '#{:02X}{:02X}{:02X}'.format(int(0+color_level), int(0+color_level), 255)
+        node.color = '#{:02X}{:02X}{:02X}'.format(int(color_level), int(color_level), 255)
         color_level+=color_step
         # Додаємо дочірні вузли до черги
         if node.left:
