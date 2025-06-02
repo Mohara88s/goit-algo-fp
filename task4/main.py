@@ -42,14 +42,18 @@ def draw_tree(tree_root):
     plt.show()
 
 def build_heap_tree(heap_array):
+    # Створюю ноди відповідно до масиву
     nodes = [Node(val) for val in heap_array]
     for i in range(len(heap_array)):
+        # Обчислюю індекси потенційних нащадків для кожної ноди
         left_index = 2 * i + 1
         right_index = 2 * i + 2
+        # Якщо лівий та правий нащадок існують то додаю посилання на них до ноди
         if left_index < len(heap_array):
             nodes[i].left = nodes[left_index]
         if right_index < len(heap_array):
             nodes[i].right = nodes[right_index]
+            # повертаю посилання на root ноду
     return nodes[0]
 
 
